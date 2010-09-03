@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 #
 # Ce script sert à transformer un article écrit en markdown
 # vers le HTML spécifique à GLMF (GNU/Linux Magazine France).
@@ -30,13 +31,14 @@ end
 
 
 def main(src, dst)
-  File.open(dst || src.sub(/md$/, 'html'), "w+") do |dst|
+  File.open(dst || src.sub(/(md|txt)$/, 'html'), "w+") do |dst|
     signature = File.read("CV.html")
+    signature.encode("ISO-8859-1")  # Ligne à commenter si vous utilisez du latin-1
 
     # 1. Structure HTML et CSS à partir du modèle
-    File.open("fichiers/modele_article.html") do |mod|
-      dst << mod.sub(/<body>.*\Z/, '')
-    end
+    model = File.read("fichiers/modele_article.html")
+    model.force_encoding("ISO-8859-1")
+    dst << model.sub(/<body>.*\Z/, '')
 
     # 2. L'article lui-même
     content = md2glmf(File.read(src), signature)
@@ -44,33 +46,90 @@ def main(src, dst)
     dst << content
 
     # 3. la signature et fin du document
-    File.open("CV.html") do |mod|
-      dst << mod.sub(/<body>.*\Z/, "<body>\n\n")
-    end if File.exists("CV.html")
+    dst << signature
+    dst << "</body>\n</html>\n"
   end
 end
 
 
 def md2glmf(markdown, signature)
   content = ""
-  lines   = markdown.lines.to_a
+  lines   = markdown.lines.map { |l| l.chomp }
 
   # Titre et signature
-  content << lines.unshift << "\n"
-  line = lines.unshift
-  line = lines.unshift if line =~ /^=+$/
+  content << lines.shift << "\n"
+  line = lines.shift
+  line = lines.shift if line =~ /^=+$/
   content << signature.lines.first << "\n"
 
   # Chapeau
-  line = lines.unshift while line.blank? && lines.any?
+  line = lines.shift while line.blank? && lines.any?
   content << '<p class="chapeau">'
-  do
+  begin
     content << line
-    line = line.unshift
-  until line.blank?
+    line = lines.shift
+  end until line.blank?
   content << "</p>\n\n"
 
+  while lines.any?
+    case line
+
+    # Blank lines
+    when /^\s*$/
+      content << "\n"
+
+    # Titles
+    when /^(\#{1,4})\s*(.*?)\s*\#*$/
+      content << "<p class=\"Titre#{$1.length}\">#{$2}</p>\n"
+
+    # Code
+    when /^\s{4}(.*)$/
+      content << "<code>"
+      content << inline_code($1)
+      content << "</code>\n"
+
+    # Image
+    when /^!\[(.*)\]\((.*\))/
+      content << "<p class=\"pragma\">/// Image : #{$2} ///</p>\n"
+      content << "<p class=\"legende\">#{$1}</p>\n"
+      content << "<p class=\"pragma\">/// Fin légende ///</p>\n"
+
+    # Notes
+    when /^<(code|console|note|pragma)>(.*)<\/\1>/
+      content << "<p class=\"#{$1}\">" << inline_txt($2) << "</p>\n"
+
+    # Normal text
+    else
+      content << '<p class="normal">' << inline_txt(line) << "</p>\n"
+
+    end
+    line = lines.shift
+  end
+
   content
+end
+
+
+def inline_txt(line)
+  line.gsub!(/`([^`]*)`/, '<span class="code_par">\1</span>')
+  line.gsub!(/_([^_]*)_/, '<span class="italic">\1</span>')
+  line.gsub!(/\*\*(.*)\*\*/, '<span class="gras">\1</span>')
+  line.gsub!(/<(menu|url)>(.*)<\/\1>/, '<span class="\1">\2</span>')
+  line.gsub!(/</, "&lt;")
+  line.gsub!(/>/, "&gt;")
+  line.gsub!(/&lt;(\/?)span/, '<\1span')
+  line.gsub!(/span&gt;/, 'span>')
+  line
+end
+
+
+def inline_code(line)
+  line.gsub!(/<(code_em)>(.*)<\/\1>/, '<span class="\1">\2</span>')
+  line.gsub!(/</, "&lt;")
+  line.gsub!(/>/, "&gt;")
+  line.gsub!(/&lt;(\/?)span/, '<\1span')
+  line.gsub!(/span&gt;/, 'span>')
+  line
 end
 
 

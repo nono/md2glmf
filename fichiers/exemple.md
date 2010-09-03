@@ -31,7 +31,7 @@ Les sessions de commandes intéractives sont à utiliser avec le style «console
      3: <code_em>parport0</code_em>
      4: cascade
 
-Plus d'information sur GRUB sur le site officiel : <http://www.gnu.org/software/grub/>
+Plus d'information sur GRUB sur le site officiel : <url>http://www.gnu.org/software/grub/</url>
 
 N'embarquez pas vos images dans le HTML mais faites-en mention avec le style «pragma». Exemple :
 
