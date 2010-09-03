@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<style type="text/css">
+
+/***********************************************/
+/************ Styles de paragraphes ************/
+/***********************************************/
+
+/* chapeau, en-tête de l'article */
+p.chapeau {
+	font-family: arial, helvetica, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+        background-color: #EEEEEE;
+}
+
+/* bloc de code, extraits de fichier, logs, etc */
+p.code {
+	font-family: "Bitstream Vera Sans Mono";
+	text-align: left;
+        white-space: pre;
+        background-color: #FFFFCC;
+        border-top-width: 0px;
+        border-left-width: 0px;
+        border-bottom-width: 4px;
+        border-right-width: 4px;
+        border-color: #AAAAAA;
+        border-style: solid;
+        padding: 10px;
+}
+
+/* console, terminal, commandes intéractives, etc */
+p.console {
+	font-family: "Bitstream Vera Sans Mono";
+	text-align: left;
+        color: #FFFFFF;
+        white-space: pre;
+        background-color: #333333;
+        border-top-width: 0px;
+        border-left-width: 0px;
+        border-bottom-width: 0px;
+        border-right-width: 0px;
+        border-color: #AAAAAA;
+        border-style: solid;
+        padding: 10px;
+}
+
+/* texte normal */
+p.normal {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: normal;
+	text-align: left;
+}
+
+/* Messages à destination de la relecture/rédaction */
+p.pragma {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: normal;
+	text-align: left;
+	background-color: #FF0000
+}
+
+/* légendes des photos, captures, schémas, illutrations */
+p.legende {
+	font-family: arial, helvetica, sans-serif;
+	font-style: italic;
+	font-weight: normal;
+}
+
+/* Bloc de note et commentaire */
+p.note {
+	font-family: arial, helvetica, sans-serif;
+}
+
+/* Signature et bloc de signature (Mini-CV */
+p.signature {
+	font-family: arial, helvetica, sans-serif;
+        font-size: 80%;
+	font-weight: normal;	
+        font-style: italic;
+}
+
+/* Titre de l'article */
+p.Titre {
+	font-family: tahoma, verdana;
+        font-variant: small-caps;
+	font-weight: bold;
+	font-size: 300%;
+        text-align: center;
+}
+
+/* texte interview question */
+p.iquestion {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: normal;
+	text-align: left;
+}
+
+/* texte interview reponse */
+p.ireponse {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: normal;
+	text-align: left;
+}
+/************ Titres ************/
+p.Titre1 {
+	font-family: tahoma, verdana;
+	font-size: 200%;
+}
+
+p.Titre2 {
+	font-family: tahoma, verdana;
+	font-size: 160%;
+}
+
+p.Titre3 {
+	font-family: tahoma, verdana;
+	font-size: 135%;
+}
+
+p.Titre4 {
+	font-family: tahoma, verdana;
+	font-size: 115%;
+}
+
+
+span.gras {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: bold;
+}
+
+/**********************************************/
+/************ Styles de caractères ************/
+/**********************************************/
+
+/* code, commande dans parapraphe normal */
+span.code_par {
+	font-family: "Bitstream Vera Sans Mono";
+	color : #000000;
+	font-weight: bold;
+        color: #AA0000;
+}
+
+/* Mise en évidence dans  code ou console */
+span.code_em {
+	font-family: "Bitstream Vera Sans Mono";
+	color: #ff0000;
+	font-weight: bold;
+}
+
+/* URL et liens */
+span.url {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: bold;
+        color: #0000FF;
+}
+
+/* Menus et options des interfaces utilisateur (graphique ou texte) */
+span.menu {
+	font-family: arial, helvetica, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* Italique : NE PAS UTILISER <i></i> !!!!! */
+span.italic {
+	font-family: arial, helvetica, sans-serif;
+	font-style: italic;
+}
+
+/* Gras : NE PAS UTILISER <b></b> !!!!! */
+span.gras {
+	font-family: arial, helvetica, sans-serif;
+	font-style: bold;
+}
+
+span.indice {
+	font-family: arial, helvetica, sans-serif;
+        vertical-align: sub;
+        font-size: 33%;
+        position: relative;
+        bottom: 2px
+}
+
+span.exposant {
+	font-family: arial, helvetica, sans-serif;
+        vertical-align: super;
+        font-size: 33%;
+        position: relative;
+        top: 2px
+}
+
+</style>
+</head>
+<body>
+
+<p class="Titre">Titre de l'article</p>
+<p class="signature">Prénom et Nom</p>
+<p class="chapeau">Ceci est le chapeau de l'article. Il s'agit d'une courte introduction au sujet ou à la problématique. essayer d'être explicite et de donner envie au lecteur de poursuivre la lecture de l'article.</p>
+
+<p class="Titre1">1. Titre de niveau 1</p>
+<p class="normal">Paragraphe en «Normal». Vos fichiers HTML peuvent embarquer la CSS dans <span class="code_par">&lt;head&gt;&lt;/head&gt;</p> ou utiliser le fichier CSS via un lien. Encodez vos fichier HTML en <span class="code_par">iso-8859-1</span> et non en UTF-8 !!!. N'oubliez pas d'utiliser les codes HTML adéquates, en particulier pour <span class="code_par">&lt;</span> et <span class="code_par">&gt;</span> souvent présent dans le code ou dans les sessions intéractives (shell par exemple).</p>
+
+<p class="code"># Une entrée typique de menu.lst
+title= DEBIAN GNU/Linux 2.6.24 (hdc3 - ext3)
+kernel= (hd1,2)/boot/vmlinuz-2.6.24-1-686 root=/dev/hdc3 vga=extended 
+initrd (hd1,2)/boot/initrd.img-2.6.24-1-686</p>
+
+<p class="normal">Paragraphe en «Normal». On fait ici mention d'un élément de la configuration : L'étiquette <span class="code_par">title</span> permet d'ajouter un titre dans les menus de GRUB. La commande <span class="code_par">grub-install</span> permet l'installation du <span class="italic">bootloader</span> (<span class="gras">Attention !</span> Ceci n'est pas un tag <span class="code_par">&lt;i&gt;</span> mais le style «italic», idem pour le gras). Nous pouvons spécifier le mode graphique à utiliser avec l'option <span class="code_par">vga</span> :</p>
+
+<p class="code"># Une entrée typique de menu.lst
+title= DEBIAN GNU/Linux 2.6.24 (hdc3 - ext3)
+kernel= (hd1,2)/boot/vmlinuz-2.6.24-1-686 root=/dev/hdc3 <span class="code_em">vga=extended</span>
+initrd (hd1,2)/boot/initrd.img-2.6.24-1-686</p>
+
+<p class="pragma">/// Ceci est une note : Attention !///</p>
+<p class="note">Note notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote. Bla notenote note notenote, note note note notenote.</p>
+<p class="pragma">/// Fin du bloc note///</p>
+
+Les sessions de commandes intéractives sont à utiliser avec le style «console». On peut également mettre en évidence certaines parties :
+
+<p class="console">[10:06:29] denis@morgane:/proc % cat dma 
+ 2: floppy
+ 3: <span class="code_em">parport0</span>
+ 4: cascade</p>
+
+<p class="normal">Plus d'information sur GRUB sur le site officiel : <span class="url">http://www.gnu.org/software/grub/</span></p>
+
+N'embarquez pas vos images dans le HTML mais faites-en mention avec le style «pragma». Exemple :
+
+<p class="pragma">/// Image : grub_figure1.png ///</p>
+<p class="legende">Figure 1 : Exemple d'écran de démarrage GRUB. Une légende peut être une simple phrase ou même la mention du numéro de figure. Cependant, pour certaines articles il peut s'agir de plusieurs paragraphes, d'où la nécessiter d'utiliser le style «pragma».</p>
+<p class="pragma">/// Fin légende ///</p>
+
+Lorsqu'on décrit une interface graphique ou texte (pas les lignes de commandes, les interfaces en mode texte comme Midnight Commander par exemple), il est possible de faire référence aux menus et option avec le style «menu». Exemple : Cochez l'option <span class="menu">Auto-connexion</span> dans la fenêtre des options qui apparaît via le menu <span class="menu">Fichier &gt; Préférences</span>.
+
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="Titre2">1.1 Titre de niveau 2</p>
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="Titre3">1.1.1 Titre de niveau 3</p>
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="Titre4">1.1.1.1 Titre de niveau 4</p>
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="normal">Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla. Bla blabla bla blabla, bla bla bla blabla.</p>
+
+<p class="signature">Prénom Nom</p>
+<p class="signature">Utilisateur GNU/Linux depuis 1994. Responsable du développement sur plateforme embarqué dans une importante SSII française. Traducteur de la documentation officielle du projet XXX.</p>
+</body>
+</html>
