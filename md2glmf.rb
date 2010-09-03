@@ -33,20 +33,20 @@ end
 def main(src, dst)
   File.open(dst || src.sub(/(md|txt)$/, 'html'), "w+") do |dst|
     signature = File.read("CV.html")
-    signature.encode("ISO-8859-1")  # Ligne à commenter si vous utilisez du latin-1
+    signature = signature.encode("ISO-8859-1")  # Ligne à commenter si vous utilisez du latin-1
 
     # 1. Structure HTML et CSS à partir du modèle
     model = File.read("fichiers/modele_article.html")
     model.force_encoding("ISO-8859-1")
-    dst << model.sub(/<body>.*\Z/, '')
+    dst << model.sub(/<body>.*\Z/m, "<body>\n\n")
 
     # 2. L'article lui-même
     content = md2glmf(File.read(src), signature)
-    content.encode("ISO-8859-1")  # Ligne à commenter si vous utilisez du latin-1
+    content = content.encode("ISO-8859-1")  # Ligne à commenter si vous utilisez du latin-1
     dst << content
 
     # 3. la signature et fin du document
-    dst << signature
+    dst << "\n" << signature
     dst << "</body>\n</html>\n"
   end
 end
@@ -57,10 +57,10 @@ def md2glmf(markdown, signature)
   lines   = markdown.lines.map { |l| l.chomp }
 
   # Titre et signature
-  content << lines.shift << "\n"
+  content << '<p class="Titre">' << lines.shift << "</p>\n"
   line = lines.shift
   line = lines.shift if line =~ /^=+$/
-  content << signature.lines.first << "\n"
+  content << signature.lines.first
 
   # Chapeau
   line = lines.shift while line.blank? && lines.any?
@@ -72,6 +72,7 @@ def md2glmf(markdown, signature)
   content << "</p>\n\n"
 
   while lines.any?
+    line = lines.shift
     case line
 
     # Blank lines
@@ -83,13 +84,18 @@ def md2glmf(markdown, signature)
       content << "<p class=\"Titre#{$1.length}\">#{$2}</p>\n"
 
     # Code
-    when /^\s{4}(.*)$/
-      content << "<code>"
-      content << inline_code($1)
-      content << "</code>\n"
+    when /^\s{4}/
+      content << '<p class="code">'
+      code = []
+      while line =~ /^\s{4}(.*)$/
+        code << inline_code($1)
+        line = lines.shift
+      end
+      lines.unshift line
+      content << code.join("\n") << "</p>\n"
 
     # Image
-    when /^!\[(.*)\]\((.*\))/
+    when /^!\[(.*)\]\((.*)\)/
       content << "<p class=\"pragma\">/// Image : #{$2} ///</p>\n"
       content << "<p class=\"legende\">#{$1}</p>\n"
       content << "<p class=\"pragma\">/// Fin légende ///</p>\n"
@@ -103,7 +109,6 @@ def md2glmf(markdown, signature)
       content << '<p class="normal">' << inline_txt(line) << "</p>\n"
 
     end
-    line = lines.shift
   end
 
   content
@@ -111,24 +116,20 @@ end
 
 
 def inline_txt(line)
-  line.gsub!(/`([^`]*)`/, '<span class="code_par">\1</span>')
-  line.gsub!(/_([^_]*)_/, '<span class="italic">\1</span>')
-  line.gsub!(/\*\*(.*)\*\*/, '<span class="gras">\1</span>')
-  line.gsub!(/<(menu|url)>(.*)<\/\1>/, '<span class="\1">\2</span>')
   line.gsub!(/</, "&lt;")
   line.gsub!(/>/, "&gt;")
-  line.gsub!(/&lt;(\/?)span/, '<\1span')
-  line.gsub!(/span&gt;/, 'span>')
+  line.gsub!(/`([^`]*)`/, '<span class="code_par">\1</span>')
+  line.gsub!(/ _([^_]*)_ /, ' <span class="italic">\1</span> ')
+  line.gsub!(/\*\*(.*)\*\*/, '<span class="gras">\1</span>')
+  line.gsub!(/&lt;(menu|url)&gt;(.*?)&lt;\/\1&gt;/, '<span class="\1">\2</span>')
   line
 end
 
 
 def inline_code(line)
-  line.gsub!(/<(code_em)>(.*)<\/\1>/, '<span class="\1">\2</span>')
   line.gsub!(/</, "&lt;")
   line.gsub!(/>/, "&gt;")
-  line.gsub!(/&lt;(\/?)span/, '<\1span')
-  line.gsub!(/span&gt;/, 'span>')
+  line.gsub!(/&lt;(code_em)&gt;([^&]*)&lt;\/\1&gt;/, '<span class="\1">\2</span>')
   line
 end
 

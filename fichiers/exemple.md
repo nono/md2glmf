@@ -3,9 +3,7 @@ Titre de l'article
 
 Ceci est le chapeau de l'article. Il s'agit d'une courte introduction au sujet ou à la problématique. essayer d'être explicite et de donner envie au lecteur de poursuivre la lecture de l'article.
 
-1. Titre de niveau 1
---------------------
-
+# 1. Titre de niveau 1 #
 Paragraphe en «Normal». Vos fichiers HTML peuvent embarquer la CSS dans `<head></head>` ou utiliser le fichier CSS via un lien. Encodez vos fichier HTML en `iso-8859-1` et non en UTF-8 !!!. N'oubliez pas d'utiliser les codes HTML adéquates, en particulier pour `<` et `>` souvent présent dans le code ou dans les sessions intéractives (shell par exemple).
 
     # Une entrée typique de menu.lst
